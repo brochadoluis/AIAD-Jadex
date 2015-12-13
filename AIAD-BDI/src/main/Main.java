@@ -16,7 +16,7 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		String ss = "";
 		while(!ss.equals("s")){
-			map.startFire();
+			//map.startFire();
 			map.printMap();
 			System.out.println("nextstep");
 			map.moveWatch();

@@ -18,8 +18,8 @@ public class Map {
 	public Map() {
     	map = mapClear;
     	watch = new int[2];
-    	watch[0] = 5;
-    	watch[1] = 5;
+    	watch[0] = 2;
+    	watch[1] = 2;
     }
 
 	public int[][] getMap() {
@@ -29,14 +29,39 @@ public class Map {
 	public void setMap(int x, int y, int value) {
 		map[y][x] = value;
     }
+
 	
 	public int moveWatch() {
 		int res = 0;
 		int x = watch[0];
 		int y = watch[1];
+		
+		
+		
 		Random r = new Random();
 		int d = r.nextInt(4);
-
+		d=0;
+		
+		if(watch[0] == 12){
+			d=1;
+			if(watch[1]==6 && watch[0] == 12){
+				d=2;
+			}
+		}
+		if(watch[1]>=6 && watch[1] <=10){
+			d=2;
+			if(watch[1]>=6 && watch[0] == 2){
+				d=1;
+			}
+			if(watch[1]==11)
+				d=0;
+		}
+		if(watch[1]==11 && watch[0] == 12)
+			d=1;
+		if(watch[1]==14)
+			d=2;
+		if(watch[0]==0 && watch[1]==14)
+			d=4;
 		switch (d){
 			case 0:
 				if(map[y][x + 1] == 0){
@@ -78,6 +103,11 @@ public class Map {
 				else
 					res = 0;
 				break;
+			case 4:
+				watch[0]=1;
+				watch[1]=2;
+				map[y][x]=0;
+				break;
 		}
 		return res;
     }
@@ -86,7 +116,7 @@ public class Map {
     private static int[][] mapClear={
             {1,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,4,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

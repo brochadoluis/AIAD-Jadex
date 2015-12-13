@@ -4,6 +4,9 @@
  */
 package agents;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import gui.Map;
 
 import jadex.bdiv3.BDIAgent;
@@ -21,13 +24,12 @@ import jadex.micro.annotation.Description;
 @Agent
 @Service
 @Description("Watcher")
-public class WatcherBDI {
+public class WatcherBDI extends FighterBDI{
 
 	@Agent
 	protected BDIAgent watcher;
 
 	public int[] pos ={0,0};
-	
 	@Belief(dynamic = true)
 	public boolean fire = false;
 	
@@ -49,9 +51,18 @@ public class WatcherBDI {
 	@AgentBody
 	public void body()
 	{
+		ArrayList<int[]> res = new ArrayList<int[]>();
+		mapp.moveWatch();
+		res.addAll(mapp.lookAround(mapp.watch));
+		res.addAll(mapp.lookArounder(mapp.watch));
+		if(!res.isEmpty()){
 		fire = true;
+		pos[0]=res.get(0)[0];
+		pos[1]=res.get(0)[1];
+		}
 		
 	}
+	
 }
 
 

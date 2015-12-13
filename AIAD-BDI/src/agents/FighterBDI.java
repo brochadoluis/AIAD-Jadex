@@ -34,8 +34,7 @@ public class FighterBDI implements FireAlertService{
 	protected BDIAgent fighter;
 
 	private int[] firePos = {0,0};
-	Map map = new Map();
-	int[][] forest = map.getMap();
+	Map mapp = new Map();
 	//public int[][] map = Map.getMap();
 
 	@Belief
@@ -52,8 +51,8 @@ public class FighterBDI implements FireAlertService{
 	@AgentBody
 	public void body() throws InterruptedException{
 		fighter.waitForDelay(1000).get();
-		System.out.println("Map size: " + forest.length);
-		int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],forest.length);
+		System.out.println("Map size: " + mapp.map.length);
+		int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],mapp.map.length);
 		Thread.sleep(2000);
 		System.out.println("Arrived to map after 2 secons");
 		System.out.println("The aproachPos is: "+ aproachPos[0] +" , " + aproachPos[1]);
@@ -67,7 +66,7 @@ public class FighterBDI implements FireAlertService{
 		if(i == 0 && j >= 0){ // horizontal axis
 			for(int k = j; k < length; k++){
 				for(int l = i; l < length; l++){
-					if(forest[l][k] != 7){
+					if(mapp.map[l][k] != 3){
 						path[0] = l;
 						path[1] = k;
 						break;

@@ -70,7 +70,6 @@ public class FighterBDI implements FireAlertService{
 	@AgentBody
 	public void body() throws InterruptedException{
 		ffighter.waitForDelay(1000).get();
-		System.out.println("Map size: " + mapp.map.length);
 		//int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],mapp.map.length);
 		Thread.sleep(2000);
 		System.out.println("Arrived to map after 2 secons");

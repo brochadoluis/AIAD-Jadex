@@ -47,7 +47,7 @@ public class CommandBDI implements WorldService  {
 	private boolean fire = false;
 
 	@Plan(trigger=@Trigger(factchangeds="fire"))
-	public void newValuePlan(ChangeEvent event) {
+	public void dispatchFirefighters(ChangeEvent event) {
 		boolean updatedFireStatus = (boolean) event.getValue();
 		if(updatedFireStatus)
 			if(fire)

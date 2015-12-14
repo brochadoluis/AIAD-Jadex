@@ -30,7 +30,7 @@ public class WatcherBDI extends FighterBDI{
 	protected BDIAgent watcher;
 
 	public int[] pos ={0,0};
-	@Belief(dynamic = true)
+	@Belief(dynamic = true, updaterate=500)
 	public boolean fire = false;
 	
 	@Plan(trigger=@Trigger(factchangeds="fire"))
@@ -51,15 +51,40 @@ public class WatcherBDI extends FighterBDI{
 	@AgentBody
 	public void body()
 	{
+		/*while(true){
 		ArrayList<int[]> res = new ArrayList<int[]>();
+		mapp.startFire();
 		mapp.moveWatch();
+		mapp.printMap();
 		res.addAll(mapp.lookAround(mapp.watch));
 		res.addAll(mapp.lookArounder(mapp.watch));
 		if(!res.isEmpty()){
 		fire = true;
 		pos[0]=res.get(0)[0];
 		pos[1]=res.get(0)[1];
+		break;
 		}
+		}*/
+		//while(true){
+		mapp.startFire();
+		//mapp.printMap();
+		//System.out.println("nextstep");
+		ArrayList<int[]> res = new ArrayList<int[]>();
+
+		mapp.moveWatch();
+		res.addAll(mapp.lookAround(mapp.watch));
+		res.addAll(mapp.lookArounder(mapp.watch));
+		if(!res.isEmpty()){
+			fire=true;
+			int pos[] = new int[2];
+			pos[0]=res.get(0)[0];
+			pos[1]=res.get(0)[1];
+			//System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
+
+		}
+		//fire = false;
+		
+		//mapp.printMap();
 		
 	}
 	

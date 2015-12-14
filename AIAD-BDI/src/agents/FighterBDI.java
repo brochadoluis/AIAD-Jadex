@@ -4,6 +4,8 @@
  */
 package agents;
 
+import java.util.ArrayList;
+
 import edu.uci.ics.jung.graph.Forest;
 import gui.Map;
 
@@ -37,7 +39,7 @@ public class FighterBDI implements FireAlertService{
 	Map mapp = new Map();
 	//public int[][] map = Map.getMap();
 
-	@Belief
+	@Belief(updaterate = 500)
 	private boolean fire;
 
 	@Plan(trigger=@Trigger(factchangeds="fire"))
@@ -45,6 +47,8 @@ public class FighterBDI implements FireAlertService{
 		boolean updatedFireStatus = (boolean) event.getValue();
 		if(updatedFireStatus)
 			System.out.println("Fighter: Dispatch order received, going to (" + firePos[0] + "," + firePos[1]+")");
+		mapp.moveFighter(firePos);
+		mapp.putOutFire();
 	}
 
 
@@ -52,10 +56,9 @@ public class FighterBDI implements FireAlertService{
 	public void body() throws InterruptedException{
 		fighter.waitForDelay(1000).get();
 		System.out.println("Map size: " + mapp.map.length);
-		int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],mapp.map.length);
+		//int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],mapp.map.length);
 		Thread.sleep(2000);
 		System.out.println("Arrived to map after 2 secons");
-		System.out.println("The aproachPos is: "+ aproachPos[0] +" , " + aproachPos[1]);
 		System.out.println("Putting out the fire");
 
 	}
@@ -112,5 +115,5 @@ public class FighterBDI implements FireAlertService{
 		this.firePos[1] = y;
 		this.fire = f;
 	}
-
+	
 }

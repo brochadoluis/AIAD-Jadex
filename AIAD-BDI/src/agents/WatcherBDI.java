@@ -22,7 +22,7 @@ import jadex.micro.annotation.Description;
 @Agent
 @Service
 @Description("Watcher")
-public class WatcherBDI extends FighterBDI{
+public class WatcherBDI extends MapBDI{
 
 	@Agent
 	protected BDIAgent watcher;
@@ -56,7 +56,7 @@ public class WatcherBDI extends FighterBDI{
 		if(fire==false){
 			mapp.startFire();
 			if(!mapp.getFire().isEmpty()){
-				setFire(pos[0] = mapp.getFire().get(0)[0], pos[0] = mapp.getFire().get(0)[1], true);
+				//setFire(pos[0] = mapp.getFire().get(0)[0], pos[0] = mapp.getFire().get(0)[1], true);
 			}
 			ArrayList<int[]> res = new ArrayList<int[]>();
 			mapp.moveWatch();

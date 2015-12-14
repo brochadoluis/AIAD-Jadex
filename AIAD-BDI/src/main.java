@@ -1,3 +1,4 @@
+import gui.Map;
 import gui.Menu;
 
 import jadex.base.Starter;
@@ -16,6 +17,7 @@ public class main {
 		final ThreadSuspendable	sus	= new ThreadSuspendable();
 		final IExternalAccess	platform	= platfut.get(sus);
 		System.out.println("Started platform: "+ platform.getComponentIdentifier());
+
 		
 		IComponentManagementService cms = SServiceProvider.getService(platform.getServiceProvider(),
 				IComponentManagementService.class, RequiredServiceInfo.SCOPE_PLATFORM).get(sus);

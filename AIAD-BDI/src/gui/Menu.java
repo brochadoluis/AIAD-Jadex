@@ -51,7 +51,10 @@ public class Menu {
 		System.out.println("Started simulation component: Command");
 		
 		IComponentIdentifier wID = cms.createComponent("Watcher", "agents/WatcherBDI.class", null).getFirstResult(sus);
-		System.out.println("Started simulation component: watcher");		
+		System.out.println("Started simulation component: watcher");
+		
+		IComponentIdentifier mID = cms.createComponent("Map", "agents/MapBDI.class", null).getFirstResult(sus);
+		System.out.println("Started simulation component: map");
 	}
 
 

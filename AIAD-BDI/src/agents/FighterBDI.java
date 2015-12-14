@@ -30,13 +30,12 @@ import jadex.micro.annotation.ProvidedServices;
 @Arguments
 @ProvidedServices(@ProvidedService(type=FireAlertService.class))
 @Description("FireFighter")
-public class FighterBDI implements FireAlertService{
+public class FighterBDI extends MapBDI implements FireAlertService{
 
 	@Agent
 	protected BDIAgent ffighter;
 
 	private int[] firePos = {0,0};
-	Map mapp = new Map();
 	private int[] firep;
 	//public int[][] map = Map.getMap();
 

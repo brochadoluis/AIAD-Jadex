@@ -66,6 +66,8 @@ public class WatcherBDI extends MapBDI{
 				fire=true;
 				pos[0]=res.get(0)[0];
 				pos[1]=res.get(0)[1];
+				System.out.println("posXX: " + mapp.watch[0] + "\tposYY: " + mapp.watch[1]);
+
 				System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
 
 			}

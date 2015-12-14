@@ -250,23 +250,24 @@ public class Map {
 	public void putOutFire(){
 		ArrayList<int[]> ems = new ArrayList<int[]>();
 		if(!lookAround(fighter).isEmpty()){
+			ems.addAll((lookAround(fighter)));
+			//ems.addAll((lookArounder(fighter)));
 			if(!lookAround(fighter).isEmpty()){
-				ems.addAll((lookAround(fighter)));
-				ems.addAll((lookArounder(fighter)));
+				
 				//for(int i = 0;i < ems.size();i++){
 					int x = ems.get(0)[0];
 					int y = ems.get(0)[1];
 					map[y][x] = 0;
-				
+					moveFighter(ems.get(0));
+					
 			}
-			moveFighter(ems.get(0));
+			else
+			moveFighter(ems.get(ems.size()-1));
 			//putOutFire();
 		}
-		else if(!getFire().isEmpty()){
-			ems.addAll((lookArounder(fighter)));
-			moveFighter(ems.get(ems.size()-1));}
-		else
-			System.out.println("fire extinguished");
+		
+		else{}
+			//System.out.println("fire extinguished");
 	}
 
 	public ArrayList<int[]> lookAroundForSpace(int[] is) {

@@ -55,14 +55,24 @@ public class FighterBDI extends MapBDI implements FireAlertService{
 	}
 
 	@Plan(trigger=@Trigger(factchangeds="time"))
-	protected void printTime()
+	protected void printTime() throws InterruptedException
 	{
-		if(fire == true){
-			
-			int pos[] ={13,10};
+		boolean found = false;
+		if(!mapp.lookArounder(mapp.fighter).isEmpty() && !mapp.lookAround(mapp.fighter).isEmpty() && fire == true)
+			found = true;
+			mapp.putOutFire();
+		if(fire == true && found == false){
+			//Thread.sleep(2000);
+			int pos[] = firep;
 			mapp.moveFighter(pos);
-			if(!mapp.lookAround(mapp.fighter).isEmpty())
-				mapp.putOutFire();
+			
+		}
+		if(mapp.getFire().isEmpty()){
+			int[] ini = {1,1};
+			mapp.moveFighter(ini);
+			setFire(0,0,false);
+			mapp.printMap();
+			System.out.println("Fighter: Fire extinguished. Returning to base");
 		}
 	}
 

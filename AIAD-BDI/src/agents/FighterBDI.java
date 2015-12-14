@@ -33,28 +33,43 @@ import jadex.micro.annotation.ProvidedServices;
 public class FighterBDI implements FireAlertService{
 
 	@Agent
-	protected BDIAgent fighter;
+	protected BDIAgent ffighter;
 
 	private int[] firePos = {0,0};
 	Map mapp = new Map();
+	private int[] firep;
 	//public int[][] map = Map.getMap();
 
-	@Belief(updaterate = 500)
+	@Belief
 	private boolean fire;
+	
+	@Belief(updaterate=200)
+	protected long time = System.currentTimeMillis();
 
 	@Plan(trigger=@Trigger(factchangeds="fire"))
 	public void newValuePlan(ChangeEvent event) {
 		boolean updatedFireStatus = (boolean) event.getValue();
+		firep = firePos;
 		if(updatedFireStatus)
 			System.out.println("Fighter: Dispatch order received, going to (" + firePos[0] + "," + firePos[1]+")");
-		mapp.moveFighter(firePos);
-		mapp.putOutFire();
+		;
 	}
 
+	@Plan(trigger=@Trigger(factchangeds="time"))
+	protected void printTime()
+	{
+		if(fire == true){
+			
+			int pos[] ={13,10};
+			mapp.moveFighter(pos);
+			if(!mapp.lookAround(mapp.fighter).isEmpty())
+				mapp.putOutFire();
+		}
+	}
 
 	@AgentBody
 	public void body() throws InterruptedException{
-		fighter.waitForDelay(1000).get();
+		ffighter.waitForDelay(1000).get();
 		System.out.println("Map size: " + mapp.map.length);
 		//int[] aproachPos =	getShortestPathtoFire(firePos[0],firePos[1],mapp.map.length);
 		Thread.sleep(2000);
@@ -62,36 +77,6 @@ public class FighterBDI implements FireAlertService{
 		System.out.println("Putting out the fire");
 
 	}
-
-
-	private int[] getShortestPathtoFire(int i, int j, int length) {
-		int[] path = {-1,-1};
-		if(i == 0 && j >= 0){ // horizontal axis
-			for(int k = j; k < length; k++){
-				for(int l = i; l < length; l++){
-					if(mapp.map[l][k] != 3){
-						path[0] = l;
-						path[1] = k;
-						break;
-					}
-				}
-			}
-		}
-		return path;
-	}
-	/*if(j == 0 && i > 0){ // vertical axis
-		for(int k = 0; k < length; k++){
-			if(forest[k][j] != 7){
-				path[0] = k;
-				path[1] = 0;
-				break;
-			}
-			else{
-				System.out.println("i and j : "+ i +" , " + j);
-				i++;
-			}
-		}
-	}*/
 
 	@Override
 	public IFuture<Void> dispatchFighters(int[] pos, boolean f) {

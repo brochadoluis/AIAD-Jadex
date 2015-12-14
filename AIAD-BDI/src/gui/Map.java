@@ -34,14 +34,86 @@ public class Map {
 	public void setMap(int x, int y, int value) {
 		map[y][x] = value;
 	}
+	
+	//0 - burnable path; 1 - base/commander; 2 - Firefighter; 3 - fire; 4 - watcher
+		private static int[][] mapClear={
+				{1,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,4,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+		};
 
+		public static int[][] map={
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+		};
+
+		public void printMap(){
+			String res = "";
+			int num = 0;
+			for(int i = 0; i < 15;i++){
+				if(i < 10)
+					res += i +" ";
+				else
+					res += i;
+				res += "|";
+				for(int j = 0; j < 15;j++){
+					num = map[i][j];
+					switch(num){
+					case 0:
+						res += "   ";
+						break;
+					case 1:
+						res += " B ";
+						break;
+					case 2:
+						res += " F ";
+						break;
+					case 3:
+						res += " f ";
+						break;
+					case 4:
+						res += " W ";
+						break;
+					}
+					res += "|";
+				}
+				res += "\n";
+			}
+			res += "    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14";
+			System.out.println(res);
+		}
 
 	public int moveWatch() {
 		int res = 0;
 
 
 
-		while(lookArounder(watch).isEmpty()){
+		if(lookArounder(watch).isEmpty()){
 			printMap();
 			int x = watch[0];
 			int y = watch[1];
@@ -118,78 +190,7 @@ public class Map {
 		return res;
 	}
 
-	//0 - burnable path; 1 - base/commander; 2 - Firefighter; 3 - fire; 4 - watcher
-	private static int[][] mapClear={
-			{1,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,4,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-
-	public static int[][] map={
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-
-	public void printMap(){
-		String res = "";
-		int num = 0;
-		for(int i = 0; i < 15;i++){
-			if(i < 10)
-				res += i +" ";
-			else
-				res += i;
-			res += "|";
-			for(int j = 0; j < 15;j++){
-				num = map[i][j];
-				switch(num){
-				case 0:
-					res += "   ";
-					break;
-				case 1:
-					res += " B ";
-					break;
-				case 2:
-					res += " F ";
-					break;
-				case 3:
-					res += " f ";
-					break;
-				case 4:
-					res += " W ";
-					break;
-				}
-				res += "|";
-			}
-			res += "\n";
-		}
-		res += "    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14";
-		System.out.println(res);
-	}
+	
 
 	public void startFire(){
 
@@ -225,42 +226,41 @@ public class Map {
 	}
 
 	public void moveFighter(int[] posf){
-		ArrayList<int[]> ems = new ArrayList<int[]>();
+		ArrayList<int[]> emss = new ArrayList<int[]>();
 		if(!getFire().isEmpty()){
-			while(lookAround(fighter).isEmpty()){
+			if(lookAround(fighter).isEmpty()){
 				int shortest = 9999;
-				ems.addAll(lookAroundForSpace(fighter));
-				for(int i = 0;i < ems.size();i++){
-					int x = ems.get(i)[0];
-					int y = ems.get(i)[1];
+				emss.addAll(lookAroundForSpace(fighter));
+				for(int i = 0;i < emss.size();i++){
+					int x = emss.get(i)[0];
+					int y = emss.get(i)[1];
 					if((Math.abs(x - posf[0]) + Math.abs(y - posf[1])) < shortest){
 						map[y][x] = 2;
 						map[fighter[1]][fighter[0]] = 0;
-						fighter[0] = ems.get(i)[0];
-						fighter[1] = ems.get(i)[1];
+						fighter[0] = emss.get(i)[0];
+						fighter[1] = emss.get(i)[1];
 						shortest = Math.abs(x - posf[0]) + Math.abs(y - posf[1]);
-						printMap();
 					}
 				}
 			}
 		}
-
+		printMap();
 	}
 
 	public void putOutFire(){
 		ArrayList<int[]> ems = new ArrayList<int[]>();
 		if(!lookAround(fighter).isEmpty()){
-			while(!lookAround(fighter).isEmpty()){
+			if(!lookAround(fighter).isEmpty()){
 				ems.addAll((lookAround(fighter)));
-				//ems.addAll((lookArounder(fighter)));
-				for(int i = 0;i < ems.size();i++){
-					int x = ems.get(i)[0];
-					int y = ems.get(i)[1];
+				ems.addAll((lookArounder(fighter)));
+				//for(int i = 0;i < ems.size();i++){
+					int x = ems.get(0)[0];
+					int y = ems.get(0)[1];
 					map[y][x] = 0;
-				}
+				
 			}
-			moveFighter(ems.get(ems.size()-1));
-			putOutFire();
+			moveFighter(ems.get(0));
+			//putOutFire();
 		}
 		else if(!getFire().isEmpty()){
 			ems.addAll((lookArounder(fighter)));

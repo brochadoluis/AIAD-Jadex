@@ -4,6 +4,7 @@
  */
 package agents;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,8 +31,11 @@ public class WatcherBDI extends FighterBDI{
 	protected BDIAgent watcher;
 
 	public int[] pos ={0,0};
-	@Belief(dynamic = true, updaterate=500)
+	@Belief(dynamic = true)
 	public boolean fire = false;
+	
+	@Belief(updaterate=200)
+	protected long time = System.currentTimeMillis();
 	
 	@Plan(trigger=@Trigger(factchangeds="fire"))
 	public void newValuePlan(ChangeEvent event) {
@@ -45,6 +49,26 @@ public class WatcherBDI extends FighterBDI{
 				alert.serviceFire(pos,fire);
 			}
 		});
+		
+	}
+	
+	@Plan(trigger=@Trigger(factchangeds="time"))
+	protected void printTime()
+	{
+		if(fire==false){
+		mapp.startFire();
+		ArrayList<int[]> res = new ArrayList<int[]>();
+		mapp.moveWatch();
+		res.addAll(mapp.lookAround(mapp.watch));
+		res.addAll(mapp.lookArounder(mapp.watch));
+		if(!res.isEmpty()){
+			fire=true;
+			pos[0]=res.get(0)[0];
+			pos[1]=res.get(0)[1];
+			System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
+
+		}
+	}
 		
 	}
 
@@ -66,22 +90,8 @@ public class WatcherBDI extends FighterBDI{
 		}
 		}*/
 		//while(true){
-		mapp.startFire();
-		//mapp.printMap();
-		//System.out.println("nextstep");
-		ArrayList<int[]> res = new ArrayList<int[]>();
-
-		mapp.moveWatch();
-		res.addAll(mapp.lookAround(mapp.watch));
-		res.addAll(mapp.lookArounder(mapp.watch));
-		if(!res.isEmpty()){
-			fire=true;
-			int pos[] = new int[2];
-			pos[0]=res.get(0)[0];
-			pos[1]=res.get(0)[1];
-			//System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
-
-		}
+		
+		
 		//fire = false;
 		
 		//mapp.printMap();

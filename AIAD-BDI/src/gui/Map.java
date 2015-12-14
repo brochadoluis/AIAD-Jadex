@@ -224,6 +224,28 @@ public class Map {
 		}
 		return ems;
 	}
+	
+	public void moveFighterTo(int[] posf){
+		ArrayList<int[]> emss = new ArrayList<int[]>();
+		if(getFire().isEmpty()){
+			if(lookAround(fighter).isEmpty()){
+				int shortest = 9999;
+				emss.addAll(lookAroundForSpace(fighter));
+				for(int i = 0;i < emss.size();i++){
+					int x = emss.get(i)[0];
+					int y = emss.get(i)[1];
+					if((Math.abs(x - posf[0]) + Math.abs(y - posf[1])) < shortest){
+						map[y][x] = 2;
+						map[fighter[1]][fighter[0]] = 0;
+						fighter[0] = emss.get(i)[0];
+						fighter[1] = emss.get(i)[1];
+						shortest = Math.abs(x - posf[0]) + Math.abs(y - posf[1]);
+					}
+				}
+			}
+		}
+		printMap();
+	}
 
 	public void moveFighter(int[] posf){
 		ArrayList<int[]> emss = new ArrayList<int[]>();

@@ -47,13 +47,14 @@ public class WatcherBDI extends MapBDI{
 						alert.serviceFire(pos,fire);
 					}
 				});
-			}		
+			}
 	}
 
 	@Plan(trigger=@Trigger(factchangeds="time"))
 	protected void printTime()
 	{
 		if(fire==false){
+			mapp.startFire();
 			mapp.startFire();
 			if(!mapp.getFire().isEmpty()){
 				//setFire(pos[0] = mapp.getFire().get(0)[0], pos[0] = mapp.getFire().get(0)[1], true);
@@ -66,12 +67,14 @@ public class WatcherBDI extends MapBDI{
 				fire=true;
 				pos[0]=res.get(0)[0];
 				pos[1]=res.get(0)[1];
-				System.out.println("posXX: " + mapp.watch[0] + "\tposYY: " + mapp.watch[1]);
+				//System.out.println("posXX: " + mapp.watch[0] + "\tposYY: " + mapp.watch[1]);
 
-				System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
+				//System.out.println("posx: " + pos[0] + "\tposy: " + pos[1]);
 
 			}
+			res.clear();
 		}
 
 	}
+	
 }

@@ -65,13 +65,15 @@ public class FighterBDI extends MapBDI implements FireAlertService{
 			//Thread.sleep(2000);
 			int pos[] = firep;
 			mapp.moveFighter(pos);
+
 			
 		}
-		if(mapp.getFire().isEmpty()){
+		if(mapp.getFire().isEmpty() && (mapp.fighter[0] != 1 || mapp.fighter[1] != 1)){
 			int[] ini = {1,1};
-			mapp.moveFighter(ini);
-			setFire(0,0,false);
+			mapp.moveFighterTo(ini);
+			fire = false;
 			mapp.printMap();
+			//System.out.println("fighter" + mapp.fighter[0] + " " + mapp.fighter[1]);
 			System.out.println("Fighter: Fire extinguished. Returning to base");
 		}
 	}
